@@ -107,6 +107,13 @@ body {
 
 .nav-btn:hover { background: rgba(245,240,232,0.07); color: var(--paper); }
 .nav-btn.active { background: var(--rust); color: var(--paper); font-weight:600; }
+a.nav-btn { text-decoration: none; }
+
+.nav-divider {
+    border: none;
+    border-top: 1px solid rgba(245,240,232,0.15);
+    margin: 0.5rem 0;
+}
 
 .sidebar-footer {
     padding: 1.5rem;

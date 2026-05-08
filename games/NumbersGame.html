@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Trail</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="game">
+  <h1>Number Trail</h1>
+
+  <div id="hud">
+    <div class="stat">
+      <div class="stat-label">Score</div>
+      <div class="stat-val" id="score">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Moves</div>
+      <div class="stat-val" id="moves">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Best</div>
+      <div class="stat-val" id="best">0</div>
+    </div>
+    <div id="cfg">
+      <label for="sizesel">Grid</label>
+      <select id="sizesel">
+        <option value="4">4×4</option>
+        <option value="5" selected>5×5</option>
+        <option value="6">6×6</option>
+        <option value="7">7×7</option>
+        <option value="8">8×8</option>
+        <option value="9">9×9</option>
+        <option value="10">10×10</option>
+        <option value="12">12×12</option>
+        <option value="15">15×15</option>
+        <option value="20">20×20</option>
+      </select>
+      <label for="levelsel">Difficulty</label>
+      <select id="levelsel">
+        <option value="low">Easy</option>
+        <option value="mid" selected>Medium</option>
+        <option value="high">Hard</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="range-note"></div>
+
+  <div id="wrap">
+    <div id="grid-wrap"><div id="grid"></div></div>
+
+    <div id="dpad">
+      <div class="dpad-row">
+        <button class="dpad-btn" id="btn-up" aria-label="Move up">
+          <i class="ti ti-arrow-up" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="dpad-row">
+        <button class="dpad-btn" id="btn-left" aria-label="Move left">
+          <i class="ti ti-arrow-left" aria-hidden="true"></i>
+        </button>
+        <div class="dpad-gap"></div>
+        <button class="dpad-btn" id="btn-right" aria-label="Move right">
+          <i class="ti ti-arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="dpad-row">
+        <button class="dpad-btn" id="btn-down" aria-label="Move down">
+          <i class="ti ti-arrow-down" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="msg">Pick any cell to start!</div>
+
+    <div id="actions">
+      <button id="btn-new">
+        <i class="ti ti-refresh" aria-hidden="true"></i> New game
+      </button>
+      <button id="btn-undo" disabled>
+        <i class="ti ti-arrow-back-up" aria-hidden="true"></i> Undo
+      </button>
+    </div>
+
+    <div id="history"></div>
+
+    <div id="overlay">
+      <div class="over-label">Game over</div>
+      <div class="over-score" id="ov-score"></div>
+      <div class="over-sub" id="ov-sub"></div>
+      <div class="over-best" id="ov-best" style="display:none">New best!</div>
+      <button class="over-btn" id="ov-play">Play again</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/game.js"></script>
+</body>
+</html>

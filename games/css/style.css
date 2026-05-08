@@ -1,0 +1,329 @@
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #f5f5f3;
+  color: #1a1a18;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+/* ── Layout ── */
+#game {
+  width: 100%;
+  max-width: 700px;
+}
+
+#game h1 {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #1a1a18;
+}
+
+/* ── HUD bar ── */
+#hud {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.stat {
+  background: #ebebea;
+  border-radius: 8px;
+  padding: 6px 12px;
+  text-align: center;
+  min-width: 60px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #888780;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stat-val {
+  font-size: 18px;
+  font-weight: 500;
+  color: #1a1a18;
+  line-height: 1.2;
+}
+
+/* ── Config controls ── */
+#cfg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+#cfg label {
+  font-size: 12px;
+  color: #888780;
+}
+
+#cfg select {
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 8px;
+  border: 0.5px solid #b4b2a9;
+  background: #ffffff;
+  color: #1a1a18;
+  cursor: pointer;
+}
+
+#cfg select:hover {
+  border-color: #888780;
+}
+
+/* ── Range note ── */
+#range-note {
+  font-size: 11px;
+  color: #888780;
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+
+/* ── Grid ── */
+#grid-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  overflow: auto;
+}
+
+#grid {
+  display: grid;
+}
+
+/* ── Cells ── */
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  border: 0.5px solid #d3d1c7;
+  background: #ffffff;
+  color: #1a1a18;
+  position: relative;
+  cursor: default;
+  transition: background 0.12s;
+  user-select: none;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+/* Current position — blue highlight */
+.cell.current {
+  background: #B5D4F4;
+  border-color: #378ADD;
+  color: #0C447C;
+  box-shadow: 0 0 0 2px #378ADD;
+  z-index: 2;
+}
+
+/* Traversed cells — red diagonal stripes */
+.cell.visited {
+  background-color: #FCEBEB;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #F09595 0px, #F09595 2px,
+    #FCEBEB 2px, #FCEBEB 10px
+  );
+  border-color: #E24B4A;
+  color: #791F1F;
+}
+
+/* Selectable starting cells */
+.cell.pickable {
+  background: #EAF3DE;
+  border-color: #639922;
+  color: #3B6D11;
+  cursor: pointer;
+}
+
+.cell.pickable:hover {
+  background: #C0DD97;
+}
+
+/* Safe move preview — amber */
+.cell.preview {
+  background: #FAEEDA;
+  border-color: #BA7517;
+  color: #633806;
+}
+
+/* Dangerous move preview — red */
+.cell.doom {
+  background: #FAECE7;
+  border-color: #993C1D;
+  color: #993C1D;
+}
+
+/* ── D-pad ── */
+#dpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  margin: 0 auto 0.75rem;
+  width: fit-content;
+}
+
+.dpad-row {
+  display: flex;
+  gap: 3px;
+}
+
+.dpad-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 8px;
+  border: 0.5px solid #b4b2a9;
+  background: #ffffff;
+  color: #1a1a18;
+  font-size: 17px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.1s, transform 0.1s;
+}
+
+.dpad-btn:hover:not(:disabled) {
+  background: #ebebea;
+}
+
+.dpad-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.dpad-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.dpad-gap {
+  width: 46px;
+  height: 46px;
+}
+
+/* ── Status message ── */
+#msg {
+  min-height: 24px;
+  font-size: 13px;
+  color: #888780;
+  text-align: center;
+  margin-bottom: 0.6rem;
+}
+
+#msg.good { color: #3B6D11; font-weight: 500; }
+#msg.bad  { color: #993C1D; font-weight: 500; }
+
+/* ── Action buttons ── */
+#actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#actions button {
+  font-size: 13px;
+  padding: 6px 16px;
+  border-radius: 8px;
+  border: 0.5px solid #b4b2a9;
+  background: #ffffff;
+  color: #1a1a18;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#actions button:hover {
+  background: #ebebea;
+}
+
+#actions button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* ── Move history ── */
+#history {
+  max-height: 60px;
+  overflow-y: auto;
+  font-size: 11px;
+  color: #888780;
+  text-align: center;
+  margin-top: 0.4rem;
+  line-height: 1.8;
+}
+
+/* ── Game-over overlay ── */
+#wrap {
+  position: relative;
+  border-radius: 12px;
+}
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(235, 235, 234, 0.97);
+  border-radius: 12px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#overlay.visible {
+  display: flex;
+}
+
+#overlay .over-label {
+  font-size: 13px;
+  color: #888780;
+}
+
+#overlay .over-score {
+  font-size: 44px;
+  font-weight: 500;
+  color: #185FA5;
+}
+
+#overlay .over-sub {
+  font-size: 13px;
+  color: #888780;
+}
+
+#overlay .over-best {
+  font-size: 13px;
+  color: #3B6D11;
+  font-weight: 500;
+}
+
+#overlay .over-btn {
+  margin-top: 6px;
+  font-size: 13px;
+  padding: 6px 20px;
+  border-radius: 8px;
+  border: 0.5px solid #b4b2a9;
+  background: #ffffff;
+  color: #1a1a18;
+  cursor: pointer;
+}
+
+#overlay .over-btn:hover {
+  background: #ebebea;
+}
