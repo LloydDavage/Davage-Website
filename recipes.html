@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipes — Lloyd Davage</title>
+
+  <meta name="description" content="A collection of homemade BBQ sauces, spice mixes and dry rubs saved from Flavour Dishes.">
+  <meta name="author" content="Lloyd Davage">
+  <meta name="robots" content="noindex, follow">
+  <meta name="language" content="en-GB">
+
+  <!-- Google Fonts — identical to index.html -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Site Styles — shared stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* ── Recipes-specific additions only ──────────────────────────────── */
+
+    /* Filter pill bar — sits between page-header and content-area */
+    .recipe-filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border, #30363d);
+      background: var(--bg-card, #161b22);
+    }
+
+    .recipe-filter-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-ter, #6e7681);
+      margin-right: 0.25rem;
+    }
+
+    .recipe-filter-btn {
+      background: transparent;
+      border: 1px solid var(--border, #30363d);
+      color: var(--text-sec, #8b949e);
+      font-family: inherit;
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      letter-spacing: 0.02em;
+    }
+
+    .recipe-filter-btn:hover {
+      border-color: var(--accent, #c8933a);
+      color: var(--accent, #c8933a);
+    }
+
+    .recipe-filter-btn.active {
+      background: var(--accent, #c8933a);
+      border-color: var(--accent, #c8933a);
+      color: #0d1117;
+    }
+
+    /* Category badge on each card */
+    .recipe-card-tag {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.18rem 0.6rem;
+      border-radius: 20px;
+      margin-bottom: 0.55rem;
+    }
+
+    .recipe-card-tag--sauce   { background: #2a1a0d; color: #e8b05a; }
+    .recipe-card-tag--powder  { background: #12111f; color: #a78bfa; }
+    .recipe-card-tag--rub     { background: #0d2014; color: #56d364; }
+
+    /* Ingredient list */
+    .recipe-ing-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .recipe-ing-item {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      line-height: 1.4;
+      align-items: baseline;
+    }
+
+    .recipe-ing-qty {
+      color: var(--accent, #c8933a);
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      font-size: 0.76rem;
+    }
+
+    /* Method note */
+    .recipe-method {
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border, #30363d);
+      font-size: 0.76rem;
+      color: var(--text-ter, #6e7681);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Inline ingredients label — avoids a separate class clash */
+    .recipe-ing-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-ter, #6e7681);
+      margin: 0.75rem 0 0;
+      display: block;
+    }
+
+    /* Count line */
+    .recipe-count {
+      font-size: 0.72rem;
+      color: var(--text-ter, #6e7681);
+      margin-bottom: 1.25rem;
+    }
+
+    /* Source credit */
+    .recipe-credit {
+      margin-top: 2.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border, #30363d);
+      font-size: 0.72rem;
+      color: var(--text-ter, #6e7681);
+    }
+  </style>
+
+</head>
+<body>
+
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-logo">
+      <img src="images/LogoLDHalf.png" alt="LD Logo">
+    </div>
+    <div class="sidebar-name">Lloyd Davage</div>
+    <div class="sidebar-cred">MBCS &middot; Southampton</div>
+  </div>
+  <nav class="nav-items">
+    <a class="nav-btn" href="index.html">
+      <span class="nav-icon">&#8962;</span> Home
+    </a>
+    <a class="nav-btn" href="index.html#experience">
+      <span class="nav-icon">&#9672;</span> Experience
+    </a>
+    <a class="nav-btn" href="index.html#skills">
+      <span class="nav-icon">&#8997;</span> Skills
+    </a>
+    <a class="nav-btn" href="index.html#hobbies">
+      <span class="nav-icon">&#9862;</span> Hobbies
+    </a>
+    <hr class="nav-divider">
+    <a class="nav-btn active" href="recipes.html">
+      <span class="nav-icon">&#9654;</span> Recipes
+    </a>
+    <a class="nav-btn" href="games/NumbersGame.html">
+      <span class="nav-icon">&#9654;</span> Numbers Game
+    </a>
+    <a class="nav-btn" href="games/wheel_of_furtune_v8.html">
+      <span class="nav-icon">&#9654;</span> Wheel of Fortune
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    davage.co.uk<br>
+    Southampton &middot; Hampshire<br>
+    &copy; Lloyd Davage 2026
+  </div>
+</aside>
+
+
+<!-- ═══ HAMBURGER ═══ -->
+<button class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+  <span></span><span></span><span></span>
+</button>
+
+
+<!-- ═══ MAIN ═══ -->
+<main class="main">
+
+  <div id="recipes" class="page active">
+
+    <div class="page-header">
+      <h2>Sauces, Rubs &amp;<br>Spice Mixes</h2>
+      <div class="subtitle">Kitchen &middot; Flavour Dishes Collection</div>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="recipe-filter-bar">
+      <span class="recipe-filter-label">Filter</span>
+      <button class="recipe-filter-btn active" onclick="recipeFilter(this, 'all')">All</button>
+      <button class="recipe-filter-btn" onclick="recipeFilter(this, 'sauce')">Sauces</button>
+      <button class="recipe-filter-btn" onclick="recipeFilter(this, 'powder')">Spice Mixes</button>
+      <button class="recipe-filter-btn" onclick="recipeFilter(this, 'rub')">Dry Rubs</button>
+    </div>
+
+    <div class="content-area">
+
+      <div class="section-block">
+        <h3 class="section-heading">Recipes</h3>
+        <p class="recipe-count" id="recipe-count">5 recipes &middot; Sourced from Flavour Dishes</p>
+
+        <div class="card-grid" id="recipe-grid">
+
+          <!-- BBQ Burger Sauce -->
+          <div class="interest-card web" data-cat="sauce">
+            <span class="recipe-card-tag recipe-card-tag--sauce">Sauce</span>
+            <div class="card-title">BBQ Burger Sauce</div>
+            <div class="card-org">MAYO BASE &middot; NO COOK</div>
+            <p class="card-body">Smoky, tangy and deeply savoury &mdash; the only burger sauce you&rsquo;ll ever need.</p>
+            <span class="recipe-ing-label">Ingredients</span>
+            <ul class="recipe-ing-list">
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">&frac12; cup</span><span>Mayonnaise</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">2 tbsp</span><span>BBQ sauce</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">1 tbsp</span><span>Dijon mustard</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">1&frac12; tsp</span><span>Worcestershire sauce</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">&frac12; tsp</span><span>Smoked paprika</span></li>
+            </ul>
+            <p class="recipe-method">Combine all ingredients and stir until smooth. Refrigerate until needed.</p>
+          </div>
+
+          <!-- Carolina Gold BBQ Sauce -->
+          <div class="interest-card web" data-cat="sauce">
+            <span class="recipe-card-tag recipe-card-tag--sauce">Sauce</span>
+            <div class="card-title">Carolina Gold BBQ Sauce</div>
+            <div class="card-org">MUSTARD BASE &middot; SIMMER 5 MIN</div>
+            <p class="card-body">Tangy mustard-based magic &mdash; pure BBQ gold from the Carolinas.</p>
+            <span class="recipe-ing-label">Ingredients</span>
+            <ul class="recipe-ing-list">
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">1 cup</span><span>Yellow mustard</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">&frac14; cup</span><span>Honey</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">&frac14; cup</span><span>Apple cider vinegar</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">2 tbsp</span><span>Ketchup</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">&frac14; tsp</span><span>Worcestershire sauce</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">&frac14; tsp</span><span>Cayenne pepper</span></li>
+            </ul>
+            <p class="recipe-method">Whisk together and simmer for 5 minutes. Serve warm or at room temperature.</p>
+          </div>
+
+          <!-- Bourbon Peppercorn Sauce -->
+          <div class="interest-card tech" data-cat="sauce">
+            <span class="recipe-card-tag recipe-card-tag--sauce">Sauce</span>
+            <div class="card-title">Bourbon Peppercorn Sauce</div>
+            <div class="card-org">CREAM SAUCE &middot; REDUCE TO THICKEN</div>
+            <p class="card-body">Rich, creamy and deeply savoury &mdash; magnificent spooned over steak.</p>
+            <span class="recipe-ing-label">Ingredients</span>
+            <ul class="recipe-ing-list">
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">2 tbsp</span><span>Butter</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">1</span><span>Shallot, minced</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">2 tbsp</span><span>Bourbon or whiskey</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">&frac34; cup</span><span>Beef broth</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">&frac12; cup</span><span>Heavy cream</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">1 tbsp</span><span>Whole peppercorns, lightly crushed</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">1 tsp</span><span>Dijon mustard</span></li>
+            </ul>
+            <p class="recipe-method">Soften shallot in butter, deglaze with bourbon, add broth, cream and peppercorns. Reduce until thickened.</p>
+          </div>
+
+          <!-- Chili Powder Mix -->
+          <div class="interest-card archery" data-cat="powder">
+            <span class="recipe-card-tag recipe-card-tag--powder">Spice Mix</span>
+            <div class="card-title">Chili Powder Mix</div>
+            <div class="card-org">DRY BLEND &middot; MAKES ~4 TBSP</div>
+            <p class="card-body">A well-rounded blend with warmth and depth &mdash; far better than anything out of a jar.</p>
+            <span class="recipe-ing-label">Ingredients</span>
+            <ul class="recipe-ing-list">
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">2 tbsp</span><span>Paprika</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">2 tsp</span><span>Ground cumin</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">1&frac12; tsp</span><span>Garlic powder</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">1 tsp</span><span>Onion powder</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">&frac12; tsp</span><span>Dried oregano</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">&frac12; tsp</span><span>Smoked paprika</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">&frac12; tsp</span><span>Cayenne pepper</span></li>
+            </ul>
+            <p class="recipe-method">Combine and store in an airtight jar. Use within 6 months for best flavour.</p>
+          </div>
+
+          <!-- BBQ Powder Mix -->
+          <div class="interest-card shooting" data-cat="rub">
+            <span class="recipe-card-tag recipe-card-tag--rub">Dry Rub</span>
+            <div class="card-title">BBQ Powder Mix</div>
+            <div class="card-org">DRY RUB &middot; GRILL OR SMOKER</div>
+            <p class="card-body">Bold, smoky and savoury &mdash; adds instant BBQ flavour to anything you put on the grill.</p>
+            <span class="recipe-ing-label">Ingredients</span>
+            <ul class="recipe-ing-list">
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">2 tbsp</span><span>Paprika</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">2 tbsp</span><span>Chili powder</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">1 tbsp</span><span>Black pepper</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">1 tbsp</span><span>Granulated garlic</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">1 tbsp</span><span>Onion powder</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">2 tbsp</span><span>Brown sugar</span></li>
+              <li class="recipe-ing-item"><span class="recipe-ing-qty">1 tsp</span><span>Salt</span></li>
+            </ul>
+            <p class="recipe-method">Mix well and store in a sealed container. Apply as a dry rub before grilling or smoking.</p>
+          </div>
+
+        </div><!-- /card-grid -->
+
+        <p class="recipe-credit">Recipes sourced from Flavour Dishes &middot; Facebook Reels &middot; January &ndash; February 2026</p>
+
+      </div><!-- /section-block -->
+
+    </div><!-- /content-area -->
+  </div><!-- /page -->
+
+</main>
+
+
+<!-- Site Scripts — shared JS handles toggleSidebar() -->
+<script src="js/main.js"></script>
+
+<script>
+  /* Recipe filter — local to this page only */
+  function recipeFilter(btn, cat) {
+    document.querySelectorAll('.recipe-filter-btn').forEach(function (b) {
+      b.classList.remove('active');
+    });
+    btn.classList.add('active');
+
+    var cards = document.querySelectorAll('#recipe-grid [data-cat]');
+    var visible = 0;
+    cards.forEach(function (card) {
+      var show = (cat === 'all' || card.dataset.cat === cat);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+
+    document.getElementById('recipe-count').innerHTML =
+      visible + ' recipe' + (visible !== 1 ? 's' : '') + ' &middot; Sourced from Flavour Dishes';
+  }
+</script>
+
+</body>
+</html>
