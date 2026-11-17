@@ -157,6 +157,13 @@ To use Claude (AI assistant) for help while editing:
 
 When you're ready to publish updates to `davage.co.uk`:
 
+0. **One command (recommended)**: `npm run deploy`
+   - Builds the site, then uploads everything in `dist/` over FTPS using `scripts/deploy.sh`
+   - Needs your FTP login in `~/.netrc` (in WSL, *not* in the project folder), then `chmod 600 ~/.netrc`:
+     `machine ftp.davage.co.uk login lloyd@davage.co.uk password YOUR_PASSWORD`
+   - The FTP login already opens in `public_html`, so files go to the FTP root — don't upload into a `public_html/` subfolder
+   - Only adds or overwrites files; it never deletes anything on the server
+
 1. **FTP/SFTP deployment**: **File → Settings → Build, Execution, Deployment → Deployment**
    - Add your hosting server credentials
    - Right-click any file → **Deployment → Upload to [server]**

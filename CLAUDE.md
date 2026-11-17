@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 npm start        # Dev server with hot reload (opens http://localhost automatically)
 npm run build    # Production bundle → /dist
+npm run deploy   # Build, then upload /dist to davage.co.uk over FTPS (scripts/deploy.sh; login in ~/.netrc)
 ```
 
 No test framework is configured.
